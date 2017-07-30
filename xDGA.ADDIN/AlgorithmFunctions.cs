@@ -1,0 +1,80 @@
+﻿// The MIT License (MIT)
+//
+// Copyright (c) 2017 Carlos Gamez
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+using ExcelDna.Integration;
+using System;
+using xDGA.CORE.Models;
+using xDGA.CORE.Algorithms;
+using System.Text;
+
+namespace xDGA.ADDIN
+{
+    public class AlgorithmFunctions
+    {
+        [ExcelFunction(Description = "Returns a string with the JSON serialised version of the Dissolved Gas Analysis data.")]
+        public static object SERIALIZEDGA(object samplingDate, double hydrogen, double methane, double ethane,
+            double ethylene, double acetylene, double carbonMonoxide, double carbonDioxide, double oxygen,
+            double nitrogen)
+        {
+            DateTime date = Optional.Check(samplingDate, DateTime.MinValue);
+
+            if (date == DateTime.MinValue) return ExcelError.ExcelErrorNull;
+
+            var dga = new DissolvedGasAnalysis(date, hydrogen, methane, ethane, ethylene, acetylene, carbonMonoxide, carbonDioxide, oxygen, nitrogen);
+
+            return dga.ToSerialisedJson();
+        }
+
+        [ExcelFunction(Description = "Executes the assessment algorithms as recommended by the IEC60599 guidelines.")]
+        public static object IEC_60599(
+            [ExcelArgument(Description = "The JSON serialised string representing the latest Dissolved Gas Analysis data.")]
+            string currentDga,
+            [ExcelArgument(Description = "The JSON serialised string representing the previous Dissolved Gas Analysis data.")]
+            object previousDga,
+            [ExcelArgument(Description = "The oil volume of the transformer in litres.")]
+            double oilVolume,
+            [ExcelArgument(Description = "A boolean flag that indicates whether the transformer has an On-Load Tap Changer that communicates with the main tank or not.")]
+            bool hasCommunicatingOltc = false)
+        {
+            try
+            {
+                string prevDga = Optional.Check(previousDga, string.Empty);
+
+                var algo = new IEC60599Algorithm(currentDga, prevDga, oilVolume, hasCommunicatingOltc);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+    }
+}

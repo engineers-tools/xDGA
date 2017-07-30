@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25788A18-501E-4616-8538-F61F2EABAA28}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>xDGA.CORE</RootNamespace>
+    <AssemblyName>xDGA.CORE</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\AcetyleneToHydrogenRatioRule.cs" />
+    <Compile Include="Algorithms\AlgorithmHelperCalculations.cs" />
+    <Compile Include="Algorithms\ApplyDetectionLimitsRule.cs" />
+    <Compile Include="Algorithms\CarbonDioxideToCarbonMonoxideRatioRule.cs" />
+    <Compile Include="Algorithms\CurrentDgaExistsRule.cs" />
+    <Compile Include="Algorithms\FinalDiagnosisRule.cs" />
+    <Compile Include="Algorithms\LimitsRule.cs" />
+    <Compile Include="Algorithms\OxygenToNitrogenRatioRule.cs" />
+    <Compile Include="Algorithms\RateOfChangeRule.cs" />
+    <Compile Include="Interfaces\IOutput.cs" />
+    <Compile Include="Interfaces\IRule.cs" />
+    <Compile Include="Models\DissolvedGasAnalysis.cs" />
+    <Compile Include="Models\FailureType.cs" />
+    <Compile Include="Models\Gases.cs" />
+    <Compile Include="Models\GasMeasurement.cs" />
+    <Compile Include="Interfaces\IAlgorithm.cs" />
+    <Compile Include="Algorithms\IEC60599Algorithm.cs" />
+    <Compile Include="Interfaces\IMeasurement.cs" />
+    <Compile Include="Interfaces\IUnit.cs" />
+    <Compile Include="Models\Measurement.cs" />
+    <Compile Include="Models\OilAnalysis.cs" />
+    <Compile Include="Models\Output.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\ConcentrationUnitConverter.cs" />
+    <Compile Include="Serialization\GasMeasurementConverter.cs" />
+    <Compile Include="Units\AcidityUnits.cs" />
+    <Compile Include="Units\ConcentrationUnits.cs" />
+    <Compile Include="Units\TimeUnits.cs" />
+    <Compile Include="Units\VolumeUnits.cs" />
+    <Compile Include="Units\VoltageUnits.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="xDGA.CORE.licenseheader" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

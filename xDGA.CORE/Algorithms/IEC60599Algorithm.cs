@@ -1,0 +1,123 @@
+﻿// The MIT License (MIT)
+//
+// Copyright (c) 2017 Carlos Gamez
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+using System.Collections.Generic;
+using xDGA.CORE.Interfaces;
+using xDGA.CORE.Models;
+using xDGA.CORE.Units;
+
+namespace xDGA.CORE.Algorithms
+{
+    public class IEC60599Algorithm : IAlgorithm
+    {
+        public string Version => "Edition 3.0, 2015-09";
+
+        private List<IOutput> _Outputs;
+        public List<IOutput> Outputs
+        {
+            get
+            {
+                if (_Outputs == null) _Outputs = new List<IOutput>();
+                return _Outputs;
+            }
+
+            set
+            {
+                _Outputs = value;
+            }
+        }
+
+        private List<IRule> _Rules;
+        public List<IRule> Rules
+        {
+            get
+            {
+                if (_Rules == null) _Rules = new List<IRule>();
+                return _Rules;
+            }
+        }
+
+        /// <summary>
+        /// The latest Dissolved Gas Analysis that will be used in the assessment.
+        /// </summary>
+        public DissolvedGasAnalysis CurrentDGA { get; set; }
+        
+        /// <summary>
+        /// The previous Dissolved Gas Analysis that will be used in the assessment.
+        /// </summary>
+        public DissolvedGasAnalysis PreviousDGA { get; set; }
+
+        /// <summary>
+        /// The Oil Volume of the transformer.
+        /// The dafault value is 0 l of oil.
+        /// </summary>
+        public Measurement OilVolume { get; set; } = new Measurement() { Value = 0, Unit = new VolumeUnits.Litre() };
+
+        /// <summary>
+        /// Flag that indicates whether the transformer has an On-Load Tap Changer (OLTC) that shares oil with the main tank or not.
+        /// The dafaul value assumes the oil does not communicate.
+        /// </summary>
+        public bool HasCommunicatingOltc { get; set; } = false;
+
+        /// <summary>
+        /// Create a new instance of the IEC 60599 analysis algorithm
+        /// </summary>
+        /// <param name="currDGA">A JSON serialized string with the Current DGA data.</param>
+        /// <param name="prevDGA">A JSON serialized string with the Previous DGA data.</param>
+        public IEC60599Algorithm(string currDGA, string prevDGA, double oilVolume, bool hasCommunicatingOltc)
+        {
+            CurrentDGA = new DissolvedGasAnalysis(currDGA);
+            PreviousDGA = string.IsNullOrEmpty(prevDGA) ? null : new DissolvedGasAnalysis(prevDGA);
+            OilVolume = new Measurement() { Value = oilVolume, Unit = new VolumeUnits.Litre() };
+            HasCommunicatingOltc = hasCommunicatingOltc;
+        }
+
+        public void Execute()
+        {
+            var currDga = CurrentDGA;
+            var prevDga = PreviousDGA;
+            var outputs = Outputs;
+
+            Rules.Add(new CurrentDgaExistsRule());
+            Rules.Add(new ApplyDetectionLimitsRule());
+            Rules.Add(new CarbonDioxideToCarbonMonoxideRatioRule());
+            Rules.Add(new OxygenToNitrogenRatioRule());
+            Rules.Add(new AcetyleneToHydrogenRatioRule(HasCommunicatingOltc));
+            Rules.Add(new RateOfChangeRule(HasCommunicatingOltc, OilVolume));
+            Rules.Add(new LimitsRule(HasCommunicatingOltc));
+            Rules.Add(new FinalDiagnosisRule());
+
+            // Create a Title output
+            Outputs.Add(new Output() { Name = "Title", Description = $"Interpretation of Dissolved Gas Analysis as per IEC60599 {Version}" });
+
+            foreach (var rule in Rules)
+            {
+                if(rule.IsApplicable(currDga, prevDga, outputs))
+                {
+                    rule.Execute(ref currDga, ref prevDga, ref outputs);
+                }
+            }
+
+            Outputs = outputs;
+        }
+    }
+}
