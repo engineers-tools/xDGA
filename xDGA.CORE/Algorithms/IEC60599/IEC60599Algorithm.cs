@@ -27,44 +27,19 @@ using xDGA.CORE.Units;
 
 namespace xDGA.CORE.Algorithms
 {
-    public class IEC60599Algorithm : IAlgorithm
+    public class IEC60599Algorithm : AbstractAlgorithm
     {
-        public string Version => "Edition 3.0, 2015-09";
-
-        private List<IOutput> _Outputs;
-        public List<IOutput> Outputs
-        {
-            get
-            {
-                if (_Outputs == null) _Outputs = new List<IOutput>();
-                return _Outputs;
-            }
-
-            set
-            {
-                _Outputs = value;
-            }
-        }
-
-        private List<IRule> _Rules;
-        public List<IRule> Rules
-        {
-            get
-            {
-                if (_Rules == null) _Rules = new List<IRule>();
-                return _Rules;
-            }
-        }
+        public override string Version => "IEC60599 Edition 3.0, 2015-09";
 
         /// <summary>
         /// The latest Dissolved Gas Analysis that will be used in the assessment.
         /// </summary>
-        public DissolvedGasAnalysis CurrentDGA { get; set; }
+        public DissolvedGasAnalysis CurrentDGA { get; internal set; }
         
         /// <summary>
         /// The previous Dissolved Gas Analysis that will be used in the assessment.
         /// </summary>
-        public DissolvedGasAnalysis PreviousDGA { get; set; }
+        public DissolvedGasAnalysis PreviousDGA { get; internal set; }
 
         /// <summary>
         /// The Oil Volume of the transformer.
@@ -91,7 +66,7 @@ namespace xDGA.CORE.Algorithms
             HasCommunicatingOltc = hasCommunicatingOltc;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             var currDga = CurrentDGA;
             var prevDga = PreviousDGA;
@@ -107,7 +82,7 @@ namespace xDGA.CORE.Algorithms
             Rules.Add(new FinalDiagnosisRule());
 
             // Create a Title output
-            Outputs.Add(new Output() { Name = "Title", Description = $"Interpretation of Dissolved Gas Analysis as per IEC60599 {Version}" });
+            outputs.Add(new Output() { Name = "Title", Description = $"Interpretation of Dissolved Gas Analysis as per {Version}" });
 
             foreach (var rule in Rules)
             {

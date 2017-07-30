@@ -46,7 +46,7 @@ namespace xDGA.CORE.Algorithms
 
             if (co2CoDiagnosis.Length > 0)
             {
-                outputs.Add(new Output() { Name = "CO2 / C0", Description = co2CoDiagnosis.ToString() });
+                outputs.Add(new Output() { Name = "CO2 / CO", Description = co2CoDiagnosis.ToString() });
             }
         }
 

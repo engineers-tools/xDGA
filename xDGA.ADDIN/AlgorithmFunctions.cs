@@ -76,5 +76,55 @@ namespace xDGA.ADDIN
                 return ex.Message;
             }
         }
+
+        [ExcelFunction(Description = "Using the supplied DGA data it calculates the outputs (zones) of the various applicable Duval Triangles.")]
+        public static object DUVALTRIANGLES(
+            [ExcelArgument(Description = "The Dissolved Gas Analysis that will be assessed.")]
+            string dga)
+        {
+            try
+            {
+                var algo = new DuvalTrianglesAlgorithm(dga);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [ExcelFunction(Description = "Using the supplied DGA data it calculates the outputs (zones) of the various applicable Duval Triangles for On-Load Tap changers (OLTC).")]
+        public static object DUVALTRIANGLES_OLTC(
+            [ExcelArgument(Description = "The Dissolved Gas Analysis that will be assessed.")]
+            string dga)
+        {
+            try
+            {
+                var algo = new DuvalTrianglesOltcAlgorithm(dga);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

@@ -38,13 +38,22 @@ namespace xDGA.CORE.Models
             PD,
             D1,
             D2,
+            DT,
             T1,
             T2,
             T3,
             S,
             O,
             C,
-            NA
+            NA,
+            ND,
+
+            OltcD1,
+            OltcN,
+            OltcT2,
+            OltcT3,
+            OltcX1,
+            OltcX3
         }
 
         /// <summary>
@@ -60,13 +69,22 @@ namespace xDGA.CORE.Models
                     { Code.PD, "PD => Partial Discharges" },
                     { Code.D1, "D1 => Discharges of low energy" },
                     { Code.D2, "D2 => Discharges of high energy" },
+                    { Code.DT, "DT => Mixtures of electrical and thermal faults." },
                     { Code.T1, "T1 => Thermal fault t < 300 oC" },
                     { Code.T2, "T2 => Thermal fault 300 oC < t < 700 oC" },
                     { Code.T3, "T3 => Thermal fault t > 700 oC" },
                     { Code.S, "S => Stray gassing of Oil (< 200 oC)" },
                     { Code.C, "C => Possible carbonization of paper" },
                     { Code.O, "O => Overheating (< 250 oC)" },
-                    { Code.NA, "NA => Not Available" }
+                    { Code.NA, "NA => Not Available" },
+                    { Code.ND, "ND => Not Determined" },
+
+                    { Code.OltcD1, "N => Normal Operation" },
+                    { Code.OltcN, "D1 => Abnormal Arcing" },
+                    { Code.OltcT2, "T2 => Severe thermal fault (300 < T < 700 oC), heavy coking" },
+                    { Code.OltcT3, "T3 => Severe thermal fault (T > 700 oC), heavy coking" },
+                    { Code.OltcX1, "X1 => Abnormal arcing or thermal fault in progress" },
+                    { Code.OltcX3, "X3 => Fault T2 or T3 in progress, or abnormal severe arcing D1" }
                 };
             }
         }

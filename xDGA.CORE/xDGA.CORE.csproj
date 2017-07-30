@@ -43,15 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Algorithms\AcetyleneToHydrogenRatioRule.cs" />
-    <Compile Include="Algorithms\AlgorithmHelperCalculations.cs" />
-    <Compile Include="Algorithms\ApplyDetectionLimitsRule.cs" />
-    <Compile Include="Algorithms\CarbonDioxideToCarbonMonoxideRatioRule.cs" />
-    <Compile Include="Algorithms\CurrentDgaExistsRule.cs" />
-    <Compile Include="Algorithms\FinalDiagnosisRule.cs" />
-    <Compile Include="Algorithms\LimitsRule.cs" />
-    <Compile Include="Algorithms\OxygenToNitrogenRatioRule.cs" />
-    <Compile Include="Algorithms\RateOfChangeRule.cs" />
+    <Compile Include="Algorithms\AbstractAlgorithm.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\AbstractDuvalTriangleRule.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleFiveRule.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleFourRule.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleOneRule.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTrianglesAlgorithm.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTrianglesOltcAlgorithm.cs" />
+    <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleTwoRule.cs" />
+    <Compile Include="Algorithms\IEC60599\AcetyleneToHydrogenRatioRule.cs" />
+    <Compile Include="Algorithms\IEC60599\AlgorithmHelperCalculations.cs" />
+    <Compile Include="Algorithms\IEC60599\ApplyDetectionLimitsRule.cs" />
+    <Compile Include="Algorithms\IEC60599\CarbonDioxideToCarbonMonoxideRatioRule.cs" />
+    <Compile Include="Algorithms\IEC60599\CurrentDgaExistsRule.cs" />
+    <Compile Include="Algorithms\IEC60599\FinalDiagnosisRule.cs" />
+    <Compile Include="Algorithms\IEC60599\LimitsRule.cs" />
+    <Compile Include="Algorithms\IEC60599\OxygenToNitrogenRatioRule.cs" />
+    <Compile Include="Algorithms\IEC60599\RateOfChangeRule.cs" />
     <Compile Include="Interfaces\IOutput.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Models\DissolvedGasAnalysis.cs" />
@@ -59,7 +67,7 @@
     <Compile Include="Models\Gases.cs" />
     <Compile Include="Models\GasMeasurement.cs" />
     <Compile Include="Interfaces\IAlgorithm.cs" />
-    <Compile Include="Algorithms\IEC60599Algorithm.cs" />
+    <Compile Include="Algorithms\IEC60599\IEC60599Algorithm.cs" />
     <Compile Include="Interfaces\IMeasurement.cs" />
     <Compile Include="Interfaces\IUnit.cs" />
     <Compile Include="Models\Measurement.cs" />
