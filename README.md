@@ -21,6 +21,7 @@ At the moment the following functions are implemented.
 * IEC_60599()
 * DUVALTRIANGLES()
 * DUVALTRIANGLES_OLTC()
+* DUVALPENTAGONS()
 
 The SERIALIZEDGA() function accepts the date and the nine gases that constitute one DGA instance. The function produces a string with the JSON serialised version of the data.
 
