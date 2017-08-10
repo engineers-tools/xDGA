@@ -61,8 +61,36 @@ namespace xDGA.TEST
             var algo = new DuvalTriangleOneRule();
             var outputs = Outputs;
 
-            algo.Execute(ref DGA, ref emptyDga, ref outputs);
+            var dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 0, 0, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.PD, algo.FailureCode);
 
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 10, 0, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.T1, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 50, 0, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.T2, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 200, 0, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.T3, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 10, 30, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.D1, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 70, 50, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.D2, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 10, 10, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
+            Assert.AreEqual(FailureType.Code.DT, algo.FailureCode);
+
+            dga = new DissolvedGasAnalysis(DateTime.Today, 0, 100, 0, 200, 100, 0, 0, 0, 0);
+            algo.Execute(ref dga, ref emptyDga, ref outputs);
             Assert.AreEqual(FailureType.Code.DT, algo.FailureCode);
         }
 

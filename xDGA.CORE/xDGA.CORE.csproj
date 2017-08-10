@@ -44,6 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\AbstractAlgorithm.cs" />
+    <Compile Include="Algorithms\DuvalPentagons\AbstractDuvalPentagonRule.cs" />
+    <Compile Include="Algorithms\DuvalPentagons\DuvalPentagonOneRule.cs" />
+    <Compile Include="Algorithms\DuvalPentagons\DuvalPentagonsAlgorithm.cs" />
+    <Compile Include="Algorithms\DuvalPentagons\DuvalPentagonTwoRule.cs" />
     <Compile Include="Algorithms\DuvalTriangles\AbstractDuvalTriangleRule.cs" />
     <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleFiveRule.cs" />
     <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleFourRule.cs" />
@@ -52,7 +56,7 @@
     <Compile Include="Algorithms\DuvalTriangles\DuvalTrianglesOltcAlgorithm.cs" />
     <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleTwoRule.cs" />
     <Compile Include="Algorithms\IEC60599\AcetyleneToHydrogenRatioRule.cs" />
-    <Compile Include="Algorithms\IEC60599\AlgorithmHelperCalculations.cs" />
+    <Compile Include="Algorithms\AlgorithmHelperCalculations.cs" />
     <Compile Include="Algorithms\IEC60599\ApplyDetectionLimitsRule.cs" />
     <Compile Include="Algorithms\IEC60599\CarbonDioxideToCarbonMonoxideRatioRule.cs" />
     <Compile Include="Algorithms\IEC60599\CurrentDgaExistsRule.cs" />
@@ -60,8 +64,11 @@
     <Compile Include="Algorithms\IEC60599\LimitsRule.cs" />
     <Compile Include="Algorithms\IEC60599\OxygenToNitrogenRatioRule.cs" />
     <Compile Include="Algorithms\IEC60599\RateOfChangeRule.cs" />
+    <Compile Include="Algorithms\IEEEC57104Algorithm.cs" />
     <Compile Include="Interfaces\IOutput.cs" />
     <Compile Include="Interfaces\IRule.cs" />
+    <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\CartesianCoordinate.cs" />
     <Compile Include="Models\DissolvedGasAnalysis.cs" />
     <Compile Include="Models\FailureType.cs" />
     <Compile Include="Models\Gases.cs" />
@@ -73,10 +80,16 @@
     <Compile Include="Models\Measurement.cs" />
     <Compile Include="Models\OilAnalysis.cs" />
     <Compile Include="Models\Output.cs" />
+    <Compile Include="Models\EquilateralPentagon.cs" />
+    <Compile Include="Models\PolygonalCoordinate.cs" />
+    <Compile Include="Models\PolygonalOrdinate.cs" />
+    <Compile Include="Models\PolygonalAxis.cs" />
+    <Compile Include="Models\Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\ConcentrationUnitConverter.cs" />
     <Compile Include="Serialization\GasMeasurementConverter.cs" />
     <Compile Include="Units\AcidityUnits.cs" />
+    <Compile Include="Units\AngleUnits.cs" />
     <Compile Include="Units\ConcentrationUnits.cs" />
     <Compile Include="Units\TimeUnits.cs" />
     <Compile Include="Units\VolumeUnits.cs" />

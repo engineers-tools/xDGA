@@ -126,5 +126,30 @@ namespace xDGA.ADDIN
                 return ex.Message;
             }
         }
+
+        [ExcelFunction(Description = "Using the supplied DGA data it calculates the outputs (zones) of the two Duval Pentagons.")]
+        public static object DUVALPENTAGONS(
+            [ExcelArgument(Description = "The Dissolved Gas Analysis that will be assessed.")]
+            string dga)
+        {
+            try
+            {
+                var algo = new DuvalPentagonsAlgorithm(dga);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

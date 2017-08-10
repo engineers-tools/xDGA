@@ -25,9 +25,9 @@ using xDGA.CORE.Models;
 
 namespace xDGA.CORE.Algorithms
 {
-    public class DuvalTrianglesAlgorithm : AbstractAlgorithm
+    public class DuvalPentagonsAlgorithm : AbstractAlgorithm
     {
-        public override string Version => "Duval Triangles for Oil Filled Transformers, Reactors and Cables";
+        public override string Version => "Duval Pentagons (IEEE Electrical Insulation Magazine, Nov/Dec - Vol. 30, No. 6, pg. 9-12)";
 
         /// <summary>
         /// The Dissolved Gas Analysis that will be used in the assessment.
@@ -35,10 +35,10 @@ namespace xDGA.CORE.Algorithms
         public DissolvedGasAnalysis DGA { get; internal set; }
 
         /// <summary>
-        /// Create a new instance of the Duval Triangles analysis algorithm
+        /// Create a new instance of the Duval Pentagons analysis algorithm
         /// </summary>
         /// <param name="dga">A JSON serialized string with the DGA data.</param>
-        public DuvalTrianglesAlgorithm(string dga)
+        public DuvalPentagonsAlgorithm(string dga)
         {
             DGA = new DissolvedGasAnalysis(dga);
         }
@@ -49,28 +49,19 @@ namespace xDGA.CORE.Algorithms
             DissolvedGasAnalysis prevDga = null;
             var outputs = Outputs;
 
+            Rules.Add(new ApplyDetectionLimitsRule());
+            Rules.Add(new DuvalPentagonOneRule());
+            Rules.Add(new DuvalPentagonTwoRule());
+
             // Create a Title output
             outputs.Add(new Output() { Name = "Title", Description = $"Interpretation of Dissolved Gas Analysis as per {Version}" });
 
-            var applyDetectionLimitsRule = new ApplyDetectionLimitsRule();
-            applyDetectionLimitsRule.Execute(ref dga, ref prevDga, ref outputs);
-
-            var triangleOneRule = new DuvalTriangleOneRule();
-            if (triangleOneRule.IsApplicable(dga, prevDga, outputs)) triangleOneRule.Execute(ref dga, ref prevDga, ref outputs);
-
-            Rules.Add(new DuvalTriangleFourRule(triangleOneRule.FailureCode));
-            Rules.Add(new DuvalTriangleFiveRule(triangleOneRule.FailureCode));
-
             foreach (var rule in Rules)
             {
-                if (rule.IsApplicable(dga, prevDga, outputs))
-                {
-                    rule.Execute(ref dga, ref prevDga, ref outputs);
-                }
+                rule.Execute(ref dga, ref prevDga, ref outputs);
             }
 
             Outputs = outputs;
         }
     }
 }
- 
