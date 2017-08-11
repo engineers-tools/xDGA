@@ -35,6 +35,7 @@ namespace xDGA.CORE.Models
         /// </summary>
         public enum Code
         {
+            N,
             PD,
             D1,
             D2,
@@ -67,6 +68,7 @@ namespace xDGA.CORE.Models
             {
                 return new Dictionary<Code, string>()
                 {
+                    { Code.N, "N => Normal Operation" },
                     { Code.PD, "PD => Partial Discharges" },
                     { Code.D1, "D1 => Discharges of low energy" },
                     { Code.D2, "D2 => Discharges of high energy" },

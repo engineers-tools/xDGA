@@ -1,5 +1,14 @@
 # xDGA
 
+## Version 0.4
+### August 2017
+
+#### xDGA.CORE
+* Added Rogers Ratios algorithm
+
+#### xDGA.ADDIN
+* Added ROGERSRATIOS() funciton
+
 ## Version 0.3
 ### August 2017
 

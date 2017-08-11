@@ -65,6 +65,8 @@
     <Compile Include="Algorithms\IEC60599\OxygenToNitrogenRatioRule.cs" />
     <Compile Include="Algorithms\IEC60599\RateOfChangeRule.cs" />
     <Compile Include="Algorithms\IEEEC57104Algorithm.cs" />
+    <Compile Include="Algorithms\RogersRatios\RogersRatiosAlgorithm.cs" />
+    <Compile Include="Algorithms\RogersRatios\RogersRatiosRule.cs" />
     <Compile Include="Interfaces\IOutput.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Models\Area.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Models\PolygonalCoordinate.cs" />
     <Compile Include="Models\PolygonalOrdinate.cs" />
     <Compile Include="Models\PolygonalAxis.cs" />
+    <Compile Include="Models\GasRatios.cs" />
     <Compile Include="Models\Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\ConcentrationUnitConverter.cs" />

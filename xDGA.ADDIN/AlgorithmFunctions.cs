@@ -151,5 +151,30 @@ namespace xDGA.ADDIN
                 return ex.Message;
             }
         }
+
+        [ExcelFunction(Description = "Using the supplied DGA data it calculates the Rogers Ratios.")]
+        public static object ROGERSRATIOS(
+            [ExcelArgument(Description = "The Dissolved Gas Analysis that will be assessed.")]
+            string dga)
+        {
+            try
+            {
+                var algo = new RogersRatiosAlgorithm(dga);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }
