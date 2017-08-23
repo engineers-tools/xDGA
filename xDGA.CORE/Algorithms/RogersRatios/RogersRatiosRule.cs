@@ -68,9 +68,9 @@ namespace xDGA.CORE.Algorithms
 
             if (_Ratios[Ratio.AcetyleneToEthylene] < 0.1 && _Ratios[Ratio.MethaneToHydrogen] > 0.1 && _Ratios[Ratio.MethaneToHydrogen] < 1.0 && _Ratios[Ratio.EthyleneToEthane] >= 1.0 && _Ratios[Ratio.EthyleneToEthane] <= 3.0) code = FailureType.Code.T1;
 
-            if (_Ratios[Ratio.AcetyleneToEthylene] < 0.1 && _Ratios[Ratio.MethaneToHydrogen] > 0.1 && _Ratios[Ratio.EthyleneToEthane] >= 1.0 && _Ratios[Ratio.EthyleneToEthane] <= 3.0) code = FailureType.Code.T2;
+            if (_Ratios[Ratio.AcetyleneToEthylene] < 0.1 && _Ratios[Ratio.MethaneToHydrogen] > 1.0 && _Ratios[Ratio.EthyleneToEthane] >= 1.0 && _Ratios[Ratio.EthyleneToEthane] <= 3.0) code = FailureType.Code.T2;
 
-            if (_Ratios[Ratio.AcetyleneToEthylene] < 0.1 && _Ratios[Ratio.MethaneToHydrogen] > 0.1 && _Ratios[Ratio.EthyleneToEthane] >= 3.0) code = FailureType.Code.T3;
+            if (_Ratios[Ratio.AcetyleneToEthylene] < 0.1 && _Ratios[Ratio.MethaneToHydrogen] > 1.0 && _Ratios[Ratio.EthyleneToEthane] >= 3.0) code = FailureType.Code.T3;
 
             return code;
         }

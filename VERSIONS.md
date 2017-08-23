@@ -1,5 +1,12 @@
 # xDGA
 
+## Version 0.5
+### August 2017
+
+#### xDGA.CORE
+* Fixed error on Rogers Ratio FailureType calculation function
+* Updated README file and fixed typos
+
 ## Version 0.4
 ### August 2017
 

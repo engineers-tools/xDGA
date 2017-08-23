@@ -1,18 +1,17 @@
 # xDGA
 
-**xDGA** is an Excel add-in that gives you the capability to apply Dissolved Gases Analysis (DGA) algorithms from all the major international guidelines.
+**xDGA** is an Excel add-in that contains custom formulas that apply Dissolved Gases Analysis (DGA) algorithms from all the major international guidelines.
 
-**xDGA** helps the user to use their existing DGA data and be able to quicly run assessments algorithms from any of the major international guidelines and industry best practices.
-
-So far, **xDGA** implements the following guidelines and algorithms:
+**xDGA** implements the following guidelines and algorithms:
 
 * IEC 60599 ed.3 2015.
 * Duval Triangles for Transformers, Reactors, Cables and On-Load Tap Changers
 * Duval Pentagons
+* Rogers Ratios
 
 ## Usage
 
-The add-in is activated by opening the **xDGA.ADDIN64.xll** or **xDGA.ADDIN.xll** file, depending on your architecture. Both files are in the **Distribution** folder and they are stand-alone (i.e. don't need other files or libraries to run).
+The add-in is activated by opening the **xDGA.ADDIN64.xll** or **xDGA.ADDIN.xll** file, depending on your architecture. Both files are in the <a href="Distribution">**Distribution**</a> folder and they are stand-alone (i.e. don't need other files or libraries to run).
 
 The formulas can then be applied to any Excel spreadsheet with DGA data.
 
@@ -31,7 +30,7 @@ The SERIALIZEDGA() function accepts the date and the nine gases that constitute 
   <img src="Images/SERIALIZEDGA.PNG" alt="SERIALIZEDGA()" width="70%" />
 </p>
 
-This is a helper function that prepares the date that can then be fed into any of the funcitons that require DGA data.
+This is a helper function that prepares DGA data in a way that can be fed into any of the funcitons that require it.
 
 For example, the IEC_60599() function takes in the Current and the Previous DGA as well as a boolean value indicating whether the transformer has an On-Load Tap Changer (OLTC) and the volume of oil in the tank in litres.
 
