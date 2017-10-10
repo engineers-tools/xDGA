@@ -44,7 +44,7 @@ namespace xDGA.CORE.Algorithms
                 Coordinates =
                 {
                     new CartesianCoordinate(0.0, 40.0),
-                    new CartesianCoordinate(38.0, 12.0),
+                    new CartesianCoordinate(38.0, 12.4),
                     new CartesianCoordinate(32.0, -6.0),
                     new CartesianCoordinate(4.0, 16.0),
                     new CartesianCoordinate(0.0, 1.5)
@@ -67,9 +67,10 @@ namespace xDGA.CORE.Algorithms
                 Coordinates =
                 {
                     new CartesianCoordinate(24.0, -30.0),
-                    new CartesianCoordinate(1.0, -32.0),
+                    new CartesianCoordinate(1.0, -32.4),
+                    new CartesianCoordinate(-23.3, -32.4),
                     new CartesianCoordinate(-6.0, -4.0),
-                    new CartesianCoordinate(-1.0, -2.0)   
+                    new CartesianCoordinate(-1.0, -2.0)
                 }
             });
 
@@ -77,8 +78,8 @@ namespace xDGA.CORE.Algorithms
             {
                 Coordinates =
                 {
-                    new CartesianCoordinate(1.0, -32.0),
-                    new CartesianCoordinate(-22.5, -32.0),
+                    new CartesianCoordinate(1.0, -32.4),
+                    new CartesianCoordinate(-22.5, -32.4),
                     new CartesianCoordinate(-6.0, -4.0)
                 }
             });
@@ -89,9 +90,10 @@ namespace xDGA.CORE.Algorithms
                 {
                     new CartesianCoordinate(0.0, 1.5),
                     new CartesianCoordinate(-35.0, 3.0),
-                    new CartesianCoordinate(-22.5, -32.0),
+                    new CartesianCoordinate(-22.5, -32.4),
                     new CartesianCoordinate(-6.0, -4.0),
-                    new CartesianCoordinate(-1.0, -2.0)
+                    new CartesianCoordinate(-1.0, -2.0),
+                    new CartesianCoordinate(-23.3, -32.4)
                 }
             });
 
@@ -105,7 +107,8 @@ namespace xDGA.CORE.Algorithms
                     new CartesianCoordinate(-1.0, 24.5),
                     new CartesianCoordinate(-1.0, 33.0),
                     new CartesianCoordinate(0.0, 33.0),
-                    new CartesianCoordinate(0.0, 40.0)
+                    new CartesianCoordinate(0.0, 40.0),
+                    new CartesianCoordinate(-38.0, -12.4)
                 }
             });
         }

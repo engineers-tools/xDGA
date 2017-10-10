@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace xDGA.CORE.Models
@@ -110,24 +111,78 @@ namespace xDGA.CORE.Models
             return Coordinates.Find(c => { return c.X == x && c.Y == y; });
         }
 
+        /// <summary>
+        /// Ensure coordinates are sorted in a counter-clockwise position
+        /// </summary>
+        private void SortCoordinates()
+        {
+            var angles = new Dictionary<double,CartesianCoordinate>();
+
+            if (Coordinates.Count > 0)
+            {
+                foreach (var coordinate in Coordinates)
+                {
+                    angles.Add(coordinate.ToVector().Angle,coordinate);
+                }
+
+                angles.Values.ToList();
+
+                var list = angles.Keys.ToList();
+                list.Sort();
+
+                Coordinates.Clear();
+
+                foreach (var angle in list)
+                {
+                    Coordinates.Add(angles[angle]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether a point is inside this polygonal area.
+        /// If the point is at an edge or a vertex it is considered to be
+        /// inside the area. It uses the algorithm documented by Paul Bourke.
+        /// <see href="http://web.archive.org/web/20080812141848/http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/"/>
+        /// </summary>
+        /// <param name="coordinate">The <see cref="CartesianCoordinate"/> that will be checked.</param>
+        /// <returns></returns>
         public bool CheckIfCoordinateIsInArea(CartesianCoordinate coordinate)
         {
             var isInside = false;
-            var x = coordinate.X;
-            var y = coordinate.Y;
+            int counter = 0;
+            int i = 1;
+            int n = Coordinates.Count;
+            double xinters;
+            CartesianCoordinate p1, p2;
 
-            var polySides = Coordinates.Count;
-            var j = polySides - 1;
+            p1 = Coordinates[0];
 
-            for (int i = 0; i < polySides; i++)
+            foreach (var point in Coordinates)
             {
-                if ((((Coordinates[i].Y < y && Coordinates[j].Y >= y) || (Coordinates[j].Y < y && Coordinates[i].Y >= y)) && (Coordinates[i].X <= x || Coordinates[j].X <= x)))
+                p2 = Coordinates[i % n];
+
+                if (coordinate.Y > Math.Min(p1.Y,p2.Y))
                 {
-                    isInside = isInside ^ ((Coordinates[i].X + (y - Coordinates[i].Y) / (Coordinates[j].Y - Coordinates[i].Y) * (Coordinates[j].X - Coordinates[i].X)) < x);
+                    if(coordinate.Y <= Math.Max(p1.Y,p2.Y))
+                    {
+                        if(coordinate.X <= Math.Max(p1.X,p2.X))
+                        {
+                            if(p1.Y != p2.Y)
+                            {
+                                xinters = (coordinate.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y) + p1.X;
+                                if (p1.X == p2.X || coordinate.X <= xinters) counter++;
+                            }
+                        }
+                    }
                 }
 
-                j = i;
+                p1 = p2;
+
+                i++;
             }
+
+            if (counter % 2 != 0) isInside = true;
 
             return isInside;
         }

@@ -1,5 +1,12 @@
 # xDGA
 
+## Version 0.6
+### October 2017
+
+#### xDGA.CORE
+* Corrected Duval Pentagons areas. Thanks to Nick and Ania from work who
+  pointed out the issue and suggested a solution.
+
 ## Version 0.5
 ### August 2017
 
