@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2017 Carlos Gamez
+// Copyright (c) 2017-2018 Carlos Gamez
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -41,17 +41,17 @@ namespace xDGA.CORE.Algorithms
 
         internal override FailureType.Code DetermineFaultZone()
         {
-            if (ThirdPercentage <= 1.0 && SecondPercentage <= 15.0 && SecondPercentage >= 2.0) return FailureType.Code.PD;
+            if (ThirdPercentage < 1.0 && SecondPercentage < 15.0 && SecondPercentage >= 2.0) return FailureType.Code.PD;
             else if (ThirdPercentage < 1.0 && SecondPercentage < 2.0) return FailureType.Code.O;
-            else if (ThirdPercentage > 1.0 && SecondPercentage <= 15.0 && ThirdPercentage < 10.0) return FailureType.Code.O;
+            else if (ThirdPercentage >= 1.0 && SecondPercentage < 15.0 && ThirdPercentage < 10.0) return FailureType.Code.O;
             else if (ThirdPercentage < 10.0 && SecondPercentage >= 54.0) return FailureType.Code.O;
-            else if (ThirdPercentage < 10.0 && SecondPercentage > 15.0 && SecondPercentage < 54.0) return FailureType.Code.S;
-            else if (ThirdPercentage >= 10.0 && ThirdPercentage < 49.0 && SecondPercentage < 30.0 && SecondPercentage > 12.0) return FailureType.Code.C;
-            else if (ThirdPercentage >= 49.0 && ThirdPercentage <= 70.0 && SecondPercentage < 30.0 && SecondPercentage > 14.0) return FailureType.Code.C;
-            else if (ThirdPercentage >= 10.0 && ThirdPercentage <= 35.0 && SecondPercentage <= 12.0) return FailureType.Code.T2;
-            else if (ThirdPercentage > 35.0 && ThirdPercentage <= 49.0 && SecondPercentage <= 12.0) return FailureType.Code.T3;
-            else if (ThirdPercentage >= 49.0 && ThirdPercentage <= 70.0 && SecondPercentage <= 14.0) return FailureType.Code.T3;
-            else if (ThirdPercentage > 70.0) return FailureType.Code.T3;
+            else if (ThirdPercentage < 10.0 && SecondPercentage >= 15.0 && SecondPercentage < 54.0) return FailureType.Code.S;
+            else if (ThirdPercentage >= 10.0 && ThirdPercentage < 49.0 && SecondPercentage < 30.0 && SecondPercentage >= 12.0) return FailureType.Code.C;
+            else if (ThirdPercentage >= 49.0 && ThirdPercentage < 70.0 && SecondPercentage < 30.0 && SecondPercentage >= 14.0) return FailureType.Code.C;
+            else if (ThirdPercentage >= 10.0 && ThirdPercentage < 35.0 && SecondPercentage < 12.0) return FailureType.Code.T2;
+            else if (ThirdPercentage >= 35.0 && ThirdPercentage < 49.0 && SecondPercentage < 12.0) return FailureType.Code.T3;
+            else if (ThirdPercentage >= 49.0 && ThirdPercentage < 70.0 && SecondPercentage < 14.0) return FailureType.Code.T3;
+            else if (ThirdPercentage >= 70.0) return FailureType.Code.T3;
             else if (ThirdPercentage >= 35.0 && SecondPercentage >= 30.0) return FailureType.Code.T3;
             else if (ThirdPercentage >= 10.0 && ThirdPercentage < 35.0 && SecondPercentage >= 30.0) return FailureType.Code.ND;
             else return FailureType.Code.NA;

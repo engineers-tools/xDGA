@@ -8,7 +8,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 		VERSIONS.md = VERSIONS.md
-		Distribution\xDGA Sample.xlsx = Distribution\xDGA Sample.xlsx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xDGA.ADDIN", "xDGA.ADDIN\xDGA.ADDIN.csproj", "{ED357EEA-74F5-4078-9826-ABB022AAEE3E}"
@@ -16,6 +15,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xDGA.CORE", "xDGA.CORE\xDGA.CORE.csproj", "{25788A18-501E-4616-8538-F61F2EABAA28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xDGA.TEST", "xDGA.TEST\xDGA.TEST.csproj", "{3BAAB604-F8A6-409E-ABC2-7DE86D4F3CD8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Distribution", "Distribution", "{577B8EE8-BE71-45C4-AB76-4AB2760435B6}"
+	ProjectSection(SolutionItems) = preProject
+		Distribution\LICENSE.txt = Distribution\LICENSE.txt
+		Distribution\xDGA Example Usage.xlsx = Distribution\xDGA Example Usage.xlsx
+		Distribution\xDGA.ADDIN.xll = Distribution\xDGA.ADDIN.xll
+		Distribution\xDGA.ADDIN64.xll = Distribution\xDGA.ADDIN64.xll
+		Distribution\xDGA32.zip = Distribution\xDGA32.zip
+		Distribution\xDGA64.zip = Distribution\xDGA64.zip
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,5 +47,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{577B8EE8-BE71-45C4-AB76-4AB2760435B6} = {C84DB4A5-19F1-4A18-A582-4818C64F42C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E6B8139-0FAD-45D4-A580-97801FE4F771}
 	EndGlobalSection
 EndGlobal
