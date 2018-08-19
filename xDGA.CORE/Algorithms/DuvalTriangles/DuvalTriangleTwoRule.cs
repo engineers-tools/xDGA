@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2017 Carlos Gamez
+// Copyright (c) 2017-2018 Carlos Gamez
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using xDGA.CORE.Interfaces;
 using xDGA.CORE.Models;
 
 namespace xDGA.CORE.Algorithms
 {
-    /// <summary>
+    /// <summary>=
     /// Duval's Triangle 2 is applicable to On-Load Tap Changers (OLTC)
-    /// </summary>
+    /// </summary>=
     public class DuvalTriangleTwoRule : AbstractDuvalTriangleRule
     {
         public DuvalTriangleTwoRule() : base("Duval Triangle 2 (OLTC)", Gas.Methane, Gas.Ethylene, Gas.Acetylene) { }
@@ -46,13 +42,13 @@ namespace xDGA.CORE.Algorithms
 
         internal override FailureType.Code DetermineFaultZone()
         {
-            if (FirstPercentage <= 19.0 && FirstPercentage >= 2.0 && SecondPercentage <= 23.0 && SecondPercentage >= 6.0) return FailureType.Code.OltcN;
-            else if (FirstPercentage <= 19.0 && SecondPercentage < 6.0) return FailureType.Code.OltcD1;
-            else if (FirstPercentage < 2.0 && SecondPercentage <= 23.0 && SecondPercentage >= 6.0) return FailureType.Code.OltcD1;
-            else if (FirstPercentage > 19.0 && SecondPercentage <= 23.0) return FailureType.Code.OltcX1;
-            else if (SecondPercentage > 23.0 && ThirdPercentage > 15.0) return FailureType.Code.OltcX3;
-            else if (ThirdPercentage <= 15.0 && SecondPercentage > 23.0 && SecondPercentage < 50.0) return FailureType.Code.OltcT2;
-            else if (ThirdPercentage <= 15.0 && SecondPercentage >= 50.0) return FailureType.Code.OltcT3;
+            if (FirstPercentage < 19.0 && FirstPercentage >= 2.0 && SecondPercentage < 23.0 && SecondPercentage >= 6.0) return FailureType.Code.OltcN;
+            else if (FirstPercentage < 19.0 && SecondPercentage < 6.0) return FailureType.Code.OltcD1;
+            else if (FirstPercentage < 2.0 && SecondPercentage < 23.0 && SecondPercentage >= 6.0) return FailureType.Code.OltcD1;
+            else if (FirstPercentage >= 19.0 && SecondPercentage < 23.0) return FailureType.Code.OltcX1;
+            else if (SecondPercentage >= 23.0 && ThirdPercentage >= 15.0) return FailureType.Code.OltcX3;
+            else if (ThirdPercentage < 15.0 && SecondPercentage >= 23.0 && SecondPercentage < 50.0) return FailureType.Code.OltcT2;
+            else if (ThirdPercentage < 15.0 && SecondPercentage >= 50.0) return FailureType.Code.OltcT3;
             else return FailureType.Code.NA;
         }
     }

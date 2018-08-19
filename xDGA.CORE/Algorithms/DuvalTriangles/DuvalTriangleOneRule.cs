@@ -1,6 +1,6 @@
 ﻿// The MIT License (MIT)
 //
-// Copyright (c) 2017 Carlos Gamez
+// Copyright (c) 2017-2018 Carlos Gamez
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,10 @@ using xDGA.CORE.Models;
 
 namespace xDGA.CORE.Algorithms
 {
-    /// <summary>
+    /// <summary>=
     /// Implements the calculations that determine in
     /// which zone of Duval's Triangle 1 the sample is.
-    /// </summary>
+    /// </summary>=
     public class DuvalTriangleOneRule : AbstractDuvalTriangleRule
     {
         public DuvalTriangleOneRule() : base("Duval Triangle 1", Gas.Methane, Gas.Ethylene, Gas.Acetylene) { }
@@ -38,15 +38,15 @@ namespace xDGA.CORE.Algorithms
         internal override FailureType.Code DetermineFaultZone()
         {
             if(FirstPercentage >= 98.0) return FailureType.Code.PD;
-            else if(FirstPercentage < 98.0 && SecondPercentage <= 20.0 && ThirdPercentage <= 4.0) return FailureType.Code.T1;
-            else if(SecondPercentage > 20.0 && SecondPercentage < 50.0 && ThirdPercentage <= 4.0) return FailureType.Code.T2;
-            else if(SecondPercentage >= 50.0 && ThirdPercentage <= 15.0) return FailureType.Code.T3;
-            else if(SecondPercentage <= 23.0 && ThirdPercentage >= 13.0) return FailureType.Code.D1;
-            else if(SecondPercentage > 23.0 && SecondPercentage <= 40.0 && ThirdPercentage >= 13.0 && ThirdPercentage < 29.0) return FailureType.Code.D2;
-            else if(SecondPercentage > 23.0 && ThirdPercentage >= 29.0) return FailureType.Code.D2;
-            else if(SecondPercentage < 50.0 && ThirdPercentage < 13.0 && ThirdPercentage > 4.0) return FailureType.Code.DT;
-            else if(SecondPercentage > 40.0 && ThirdPercentage > 15.0 && ThirdPercentage < 29.0) return FailureType.Code.DT;
-            else if(SecondPercentage > 40.0 && SecondPercentage < 50.0 && ThirdPercentage >= 13.0 && ThirdPercentage <= 15.0) return FailureType.Code.DT;
+            else if(FirstPercentage < 98.0 && SecondPercentage < 20.0 && ThirdPercentage < 4.0) return FailureType.Code.T1;
+            else if(SecondPercentage >= 20.0 && SecondPercentage < 50.0 && ThirdPercentage < 4.0) return FailureType.Code.T2;
+            else if(SecondPercentage >= 50.0 && ThirdPercentage < 15.0) return FailureType.Code.T3;
+            else if(SecondPercentage < 23.0 && ThirdPercentage >= 13.0) return FailureType.Code.D1;
+            else if(SecondPercentage >= 23.0 && SecondPercentage < 40.0 && ThirdPercentage >= 13.0 && ThirdPercentage < 29.0) return FailureType.Code.D2;
+            else if(SecondPercentage >= 23.0 && ThirdPercentage >= 29.0) return FailureType.Code.D2;
+            else if(SecondPercentage < 50.0 && ThirdPercentage < 13.0 && ThirdPercentage >= 4.0) return FailureType.Code.DT;
+            else if(SecondPercentage >= 40.0 && ThirdPercentage >= 15.0 && ThirdPercentage < 29.0) return FailureType.Code.DT;
+            else if(SecondPercentage >= 40.0 && SecondPercentage < 50.0 && ThirdPercentage >= 13.0 && ThirdPercentage < 15.0) return FailureType.Code.DT;
             else return FailureType.Code.NA;
         }
     }

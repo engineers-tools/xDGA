@@ -1,5 +1,13 @@
 # xDGA
 
+## Version 0.7
+### August 2018
+
+#### xDGA.CORE
+* Updated License copyright period.
+* Fixed bug on TriangleFourRule. PD zone failure mode was missing a condition.
+* Ensured consistency in Triangle and Pentagon areas rules by using only '<' and '>='.
+
 ## Version 0.6
 ### October 2017
 
@@ -15,7 +23,7 @@
 * Updated README file and fixed typos
 
 ## Version 0.4
-### August 2017
+### August 2017License HEader
 
 #### xDGA.CORE
 * Added Rogers Ratios algorithm
