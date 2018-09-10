@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\xDGA.CORE.xml</DocumentationFile>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,20 +59,24 @@
     <Compile Include="Algorithms\DuvalTriangles\DuvalTriangleTwoRule.cs" />
     <Compile Include="Algorithms\IEC60599\AcetyleneToHydrogenRatioRule.cs" />
     <Compile Include="Algorithms\AlgorithmHelperCalculations.cs" />
-    <Compile Include="Algorithms\IEC60599\ApplyDetectionLimitsRule.cs" />
+    <Compile Include="Algorithms\ApplyDetectionLimitsRule.cs" />
     <Compile Include="Algorithms\IEC60599\CarbonDioxideToCarbonMonoxideRatioRule.cs" />
-    <Compile Include="Algorithms\IEC60599\CurrentDgaExistsRule.cs" />
+    <Compile Include="Algorithms\CurrentDgaExistsRule.cs" />
     <Compile Include="Algorithms\IEC60599\FinalDiagnosisRule.cs" />
     <Compile Include="Algorithms\IEC60599\LimitsRule.cs" />
     <Compile Include="Algorithms\IEC60599\OxygenToNitrogenRatioRule.cs" />
     <Compile Include="Algorithms\IEC60599\RateOfChangeRule.cs" />
-    <Compile Include="Algorithms\IEEEC57104Algorithm.cs" />
+    <Compile Include="Algorithms\IEEEC57104\Tables.cs" />
+    <Compile Include="Algorithms\IEEEC57104\IEEEC57104Algorithm.cs" />
+    <Compile Include="Algorithms\IEEEC57104\TableOneRule.cs" />
     <Compile Include="Algorithms\RogersRatios\RogersRatiosAlgorithm.cs" />
     <Compile Include="Algorithms\RogersRatios\RogersRatiosRule.cs" />
     <Compile Include="Interfaces\IOutput.cs" />
     <Compile Include="Interfaces\IRule.cs" />
     <Compile Include="Models\Area.cs" />
     <Compile Include="Models\CartesianCoordinate.cs" />
+    <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\Column.cs" />
     <Compile Include="Models\DissolvedGasAnalysis.cs" />
     <Compile Include="Models\FailureType.cs" />
     <Compile Include="Models\Gases.cs" />
@@ -88,6 +93,8 @@
     <Compile Include="Models\PolygonalOrdinate.cs" />
     <Compile Include="Models\PolygonalAxis.cs" />
     <Compile Include="Models\GasRatios.cs" />
+    <Compile Include="Models\Row.cs" />
+    <Compile Include="Models\Table.cs" />
     <Compile Include="Models\Vector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\ConcentrationUnitConverter.cs" />

@@ -20,44 +20,56 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using xDGA.CORE.Algorithms.IEEEC57104;
 using xDGA.CORE.Models;
 
 namespace xDGA.CORE.Algorithms
 {
-    public class DuvalPentagonsAlgorithm : AbstractAlgorithm
+    public class IEEEC57104Algorithm : AbstractAlgorithm
     {
-        public override string Version => "Duval Pentagons (IEEE Electrical Insulation Magazine, Nov/Dec - Vol. 30, No. 6, pg. 9-12)";
+        public override string Version => "IEEE DRAFT PC57.104/D4.1, October 2017";
 
         /// <summary>
-        /// The Dissolved Gas Analysis that will be used in the assessment.
+        /// The latest Dissolved Gas Analysis that will be used in the assessment.
         /// </summary>
-        public DissolvedGasAnalysis DGA { get; internal set; }
+        public DissolvedGasAnalysis CurrentDGA { get; internal set; }
 
         /// <summary>
-        /// Create a new instance of the Duval Pentagons analysis algorithm
+        /// The previous Dissolved Gas Analysis that will be used in the assessment.
         /// </summary>
-        /// <param name="dga">A JSON serialized string with the DGA data.</param>
-        public DuvalPentagonsAlgorithm(string dga)
+        public DissolvedGasAnalysis PreviousDGA { get; internal set; }
+
+        /// <summary>
+        /// The age of the transformer in years.
+        /// </summary>
+        public int? TransformerAge { get; internal set; }
+
+        public IEEEC57104Algorithm(string currDGA, string prevDGA, int? transformerAge)
         {
-            DGA = new DissolvedGasAnalysis(dga);
+            CurrentDGA = string.IsNullOrEmpty(currDGA) ? null : new DissolvedGasAnalysis(currDGA);
+            PreviousDGA = string.IsNullOrEmpty(prevDGA) ? null : new DissolvedGasAnalysis(prevDGA);
+            TransformerAge = transformerAge;
         }
 
         public override void Execute()
         {
-            var dga = DGA;
-            DissolvedGasAnalysis prevDga = null;
+            var currDga = CurrentDGA;
+            var prevDga = PreviousDGA;
             var outputs = Outputs;
 
+            Rules.Add(new CurrentDgaExistsRule());
             Rules.Add(new ApplyDetectionLimitsRule());
-            Rules.Add(new DuvalPentagonOneRule());
-            Rules.Add(new DuvalPentagonTwoRule());
+            Rules.Add(new TableOneRule(TransformerAge));
 
             // Create a Title output
             outputs.Add(new Output() { Name = "Title", Description = $"Interpretation of Dissolved Gas Analysis as per {Version}" });
 
             foreach (var rule in Rules)
             {
-                rule.Execute(ref dga, ref prevDga, ref outputs);
+                if (rule.IsApplicable(currDga, prevDga, outputs))
+                {
+                    rule.Execute(ref currDga, ref prevDga, ref outputs);
+                }
             }
 
             Outputs = outputs;

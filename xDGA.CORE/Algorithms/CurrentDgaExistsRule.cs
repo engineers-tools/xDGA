@@ -20,39 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using System.Collections.Generic;
-using System.Text;
 using xDGA.CORE.Interfaces;
 using xDGA.CORE.Models;
 
-namespace xDGA.CORE.Algorithms.IEC60599
+namespace xDGA.CORE.Algorithms
 {
-    public class CarbonDioxideToCarbonMonoxideRatioRule : IRule
+    public class CurrentDgaExistsRule : IRule
     {
         public void Execute(ref DissolvedGasAnalysis currentDga, ref DissolvedGasAnalysis previousDga, ref List<IOutput> outputs)
         {
-            var ratio = AlgorithmHelperCalculations.GasRatio(currentDga.CarbonDioxide, currentDga.CarbonMonoxide);
+            if(currentDga == null) throw new MissingFieldException("The algorithm requires at least the latest Oil Analysis to run.");
 
-            var co2CoDiagnosis = new StringBuilder();
-            if (ratio < 3.0)
-            {
-                co2CoDiagnosis.AppendLine($"The Carbon Dioxide to Carbon Monoxide Ratio (CO2/CO) is {((double)ratio).ToString("0.00")} which is less than 3. This is generally considered as an indication of probable paper involvement in a fault, with possible carbonization, in the presence of other fault gases.");
-            }
-
-            if (ratio > 10 && currentDga.CarbonDioxide.Value > 10000.0)
-            {
-                co2CoDiagnosis.AppendLine($"High values of CO2 ({currentDga.CarbonDioxide.Value.ToString("0.00")} > 10000) and high CO2/CO ratios ({1} > 10) can indicate mild (< 160 oC) overheating of paper or oil oxidation, especially in open transformers. The Carbon Dioxide to Carbon Monoxide Ratio (CO2/CO) is {((double)ratio).ToString("0.00")}");
-            }
-
-            if (co2CoDiagnosis.Length > 0)
-            {
-                outputs.Add(new Output() { Name = "CO2 / CO", Description = co2CoDiagnosis.ToString() });
-            }
+            if(previousDga == null) outputs.Add(new Output() { Name = "Insufficient Data", Description = "Only the current or latest Oil Analysis record is available, without a previous analysis to compare to, some of the calculations recommended by this guideline cannot be performed." });
         }
 
         public bool IsApplicable(DissolvedGasAnalysis currentDga, DissolvedGasAnalysis previousDga, List<IOutput> outputs)
         {
-            return currentDga != null && currentDga.CarbonDioxide != null && currentDga.CarbonMonoxide != null;
+            return true;
         }
     }
 }

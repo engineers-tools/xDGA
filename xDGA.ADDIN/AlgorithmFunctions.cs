@@ -44,7 +44,7 @@ namespace xDGA.ADDIN
             return dga.ToSerialisedJson();
         }
 
-        [ExcelFunction(Description = "Executes the assessment algorithms as recommended by the IEC60599 guidelines.")]
+        [ExcelFunction(Description = "Executes the assessment algorithms as recommended by the IEC 60599 guidelines.")]
         public static object IEC_60599(
             [ExcelArgument(Description = "The JSON serialised string representing the latest Dissolved Gas Analysis data.")]
             string currentDga,
@@ -60,6 +60,37 @@ namespace xDGA.ADDIN
                 string prevDga = Optional.Check(previousDga, string.Empty);
 
                 var algo = new IEC60599Algorithm(currentDga, prevDga, oilVolume, hasCommunicatingOltc);
+                algo.Execute();
+
+                var output = new StringBuilder();
+
+                foreach (var item in algo.Outputs)
+                {
+                    output.AppendLine($"[ {item.Name} => {item.Description} ]");
+                }
+
+                return output.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        [ExcelFunction(Description = "Executes the assessment algorithms as recommended by the IEC C57.104 guidelines.")]
+        public static object IEEE_C57104(
+            [ExcelArgument(Description = "The JSON serialised string representing the latest Dissolved Gas Analysis data.")]
+            string currentDga,
+            [ExcelArgument(Description = "The JSON serialised string representing the previous Dissolved Gas Analysis data.")]
+            object previousDga,
+            [ExcelArgument(Description = "The age of the transformer in years (integer number).")]
+            int? transformerAge = null)
+        {
+            try
+            {
+                string prevDga = Optional.Check(previousDga, string.Empty);
+
+                var algo = new IEEEC57104Algorithm(currentDga, prevDga, transformerAge);
                 algo.Execute();
 
                 var output = new StringBuilder();

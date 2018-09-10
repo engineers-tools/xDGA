@@ -20,25 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
-using System.Collections.Generic;
-using xDGA.CORE.Interfaces;
-using xDGA.CORE.Models;
 
-namespace xDGA.CORE.Algorithms
+namespace xDGA.CORE.Models
 {
-    public class CurrentDgaExistsRule : IRule
+    public class Cell
     {
-        public void Execute(ref DissolvedGasAnalysis currentDga, ref DissolvedGasAnalysis previousDga, ref List<IOutput> outputs)
-        {
-            if(currentDga == null) throw new MissingFieldException("The IEC60599 algorithm requires at least the latest Oil Analysis to run.");
-
-            if(previousDga == null) outputs.Add(new Output() { Name = "Insufficient Data", Description = "Only the current or latest Oil Analysis record is available, without a previous analysis to compare to, some of the calculations recommended by this guideline cannot be performed." });
-        }
-
-        public bool IsApplicable(DissolvedGasAnalysis currentDga, DissolvedGasAnalysis previousDga, List<IOutput> outputs)
-        {
-            return true;
-        }
+        public int Row { get; set; }
+        public int Column { get; set; }
+        public object Value { get; set; }
     }
 }

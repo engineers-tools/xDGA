@@ -28,7 +28,7 @@ using xDGA.CORE.Models;
 using xDGA.CORE.Units;
 using helper = xDGA.CORE.Algorithms.AlgorithmHelperCalculations;
 
-namespace xDGA.CORE.Algorithms
+namespace xDGA.CORE.Algorithms.IEC60599
 {
     public class RateOfChangeRule : IRule
     {

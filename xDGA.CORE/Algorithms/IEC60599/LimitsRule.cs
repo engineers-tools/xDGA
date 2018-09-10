@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using xDGA.CORE.Interfaces;
 using xDGA.CORE.Models;
 
-namespace xDGA.CORE.Algorithms
+namespace xDGA.CORE.Algorithms.IEC60599
 {
     public class LimitsRule : IRule
     {

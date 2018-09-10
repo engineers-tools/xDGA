@@ -20,50 +20,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Text;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using xDGA.CORE.Interfaces;
 using xDGA.CORE.Models;
 
-namespace xDGA.CORE.Algorithms.IEC60599
+namespace xDGA.CORE.Algorithms.IEEEC57104
 {
-    public class AcetyleneToHydrogenRatioRule : IRule
+    public class TableOneRule : IRule
     {
-        private bool HasCommunicatingOltc;
 
-        public AcetyleneToHydrogenRatioRule(bool hasCommunicatingOltc)
+        private int? _TransformerAge { get; set; } = null;
+
+        public TableOneRule(int? transformerAge)
         {
-            HasCommunicatingOltc = hasCommunicatingOltc;
+            _TransformerAge = transformerAge;
         }
 
         public void Execute(ref DissolvedGasAnalysis currentDga, ref DissolvedGasAnalysis previousDga, ref List<IOutput> outputs)
         {
-            var ratio = AlgorithmHelperCalculations.GasRatio(currentDga.Acetylene, currentDga.Hydrogen);
-
-            var diagnosis = new StringBuilder();
-            if (ratio > 2.0)
-            {
-                if (!HasCommunicatingOltc)
-                {
-                    diagnosis.AppendLine("Although this transformer has been identified as not having communication between the On-Load Tap Changer oil and the main tank oil, ");
-                }
-                else
-                {
-                    diagnosis.AppendLine("This transformer has been identified as having communication between the On-Load Tap Changer oil and the main tank oil.");
-                }
-
-                diagnosis.AppendLine($"Acetylene to Hydrogen ratios higher than 2 or 3 in the main tank ({((double)ratio).ToString("0.00")} in this case) are considered as an indication of OLTC contamination. This can be confirmed by comparing DGA results in the main tank, in the OLTC and in the conservators.");
-            }
-
-            if (diagnosis.Length > 0)
-            {
-                outputs.Add(new Output() { Name = "C2H2 / H2", Description = diagnosis.ToString() });
-            }
+            var isExceeded = _CheckIfTableOneValuesAreExceeded(currentDga, _TransformerAge);
         }
 
         public bool IsApplicable(DissolvedGasAnalysis currentDga, DissolvedGasAnalysis previousDga, List<IOutput> outputs)
         {
-            return currentDga != null && currentDga.Acetylene != null && currentDga.Hydrogen != null;
+            return currentDga != null;
+        }
+
+        private bool _CheckIfTableOneValuesAreExceeded(DissolvedGasAnalysis dga, int? transformerAge)
+        {
+            DissolvedGasAnalysis limits = Tables.TableOneGasLimits(dga, transformerAge);
+
+            if (dga.Hydrogen.Value <= limits.Hydrogen.Value &&
+               dga.Methane.Value <= limits.Methane.Value &&
+               dga.Ethane.Value <= limits.Ethane.Value &&
+               dga.Ethylene.Value <= limits.Ethylene.Value &&
+               dga.Acetylene.Value <= limits.Acetylene.Value &&
+               dga.CarbonMonoxide.Value <= limits.CarbonMonoxide.Value &&
+               dga.CarbonDioxide.Value <= limits.CarbonDioxide.Value)
+                return true;
+
+            return false;
         }
     }
 }

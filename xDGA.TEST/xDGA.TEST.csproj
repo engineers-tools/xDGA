@@ -57,6 +57,7 @@
     <Compile Include="UnitConversionTests.cs" />
     <Compile Include="CoordinatesTests.cs" />
     <Compile Include="RogersRatiosTests.cs" />
+    <Compile Include="TableTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

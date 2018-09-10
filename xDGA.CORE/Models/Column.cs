@@ -20,17 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 
-namespace xDGA.CORE.Algorithms
+namespace xDGA.CORE.Models
 {
-    public class IEEEC57104Algorithm : AbstractAlgorithm
+    public class Column
     {
-        public override string Version => "IEEE Std C57.104-2008";
-
-        public override void Execute()
-        {
-            throw new NotImplementedException();
-        }
+        public int Index { get; set; }
+        public string Name { get; set; }
     }
 }

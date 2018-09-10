@@ -1,5 +1,14 @@
 # xDGA
 
+## Version 0.8
+### September 2018
+
+#### xDGA.CORE
+* Implemented draft IEEE PC57.104/D4.1, October 2017
+
+#### xDGA.ADDIN
+* Added IEEE_C57104() funciton
+
 ## Version 0.7
 ### August 2018
 

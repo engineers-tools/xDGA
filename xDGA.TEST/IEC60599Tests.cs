@@ -28,6 +28,7 @@ using xDGA.CORE.Algorithms;
 using System.Collections.Generic;
 using xDGA.CORE.Units;
 using xDGA.CORE.Interfaces;
+using xDGA.CORE.Algorithms.IEC60599;
 
 namespace xDGA.TEST
 {

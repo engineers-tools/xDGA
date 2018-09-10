@@ -5,6 +5,7 @@
 **xDGA** implements the following guidelines and algorithms:
 
 * IEC 60599 ed.3 2015.
+* IEEE DRAFT PC57.104/D4.1, October 2017
 * Duval Triangles for Transformers, Reactors, Cables and On-Load Tap Changers
 * Duval Pentagons
 * Rogers Ratios
@@ -19,6 +20,7 @@ The following Excel functions are implemented.
 
 * SERIALIZEDGA()
 * IEC_60599()
+* IEEE_C57104()
 * DUVALTRIANGLES()
 * DUVALTRIANGLES_OLTC()
 * DUVALPENTAGONS()

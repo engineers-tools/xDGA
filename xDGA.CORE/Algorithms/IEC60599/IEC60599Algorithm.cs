@@ -20,8 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Generic;
-using xDGA.CORE.Interfaces;
+using xDGA.CORE.Algorithms.IEC60599;
 using xDGA.CORE.Models;
 using xDGA.CORE.Units;
 
@@ -58,9 +57,11 @@ namespace xDGA.CORE.Algorithms
         /// </summary>
         /// <param name="currDGA">A JSON serialized string with the Current DGA data.</param>
         /// <param name="prevDGA">A JSON serialized string with the Previous DGA data.</param>
+        /// <param name="oilVolume">The oil volume of the main tank in litres.</param>
+        /// <param name="hasCommunicatingOltc">A flag that indicates whether the transformer's main tank and the OLTC diverter have a way to exchange oil.</param>
         public IEC60599Algorithm(string currDGA, string prevDGA, double oilVolume, bool hasCommunicatingOltc)
         {
-            CurrentDGA = new DissolvedGasAnalysis(currDGA);
+            CurrentDGA = string.IsNullOrEmpty(currDGA) ? null : new DissolvedGasAnalysis(currDGA);
             PreviousDGA = string.IsNullOrEmpty(prevDGA) ? null : new DissolvedGasAnalysis(prevDGA);
             OilVolume = new Measurement() { Value = oilVolume, Unit = new VolumeUnits.Litre() };
             HasCommunicatingOltc = hasCommunicatingOltc;
