@@ -44,7 +44,7 @@ The IEC_60599() function returns a string with all the outputs and results of ru
   <img src="Images/IEC_60599-Output.PNG" alt="IEC_60599-Output" width="95%" />
 </p>
 
-Explore the example file to get a better understanding of how these two functions work together.
+Explore the [example file] (https://github.com/engineers-tools/xDGA/raw/master/Distribution/xDGA%20Example%20Usage.xlsx) to get a better understanding of how these two functions work together.
 
 More guidelines are being implemented and will be released in the future, including IEEE and CIGRE guidelines.
 
