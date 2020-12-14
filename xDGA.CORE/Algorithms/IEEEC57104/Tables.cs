@@ -51,9 +51,11 @@ namespace xDGA.CORE.Algorithms.IEEEC57104
             }
         }
 
-        private static List<TableOneRow> GetTableOne()
+        private static List<TableOneRow> TableOne
         {
-            var t = new List<TableOneRow>()
+            get
+            {
+                var t = new List<TableOneRow>()
             {
                 // Hydrogen (H2) row
                 new TableOneRow(Gas.Hydrogen, "<=0.2", null, null, 80),
@@ -120,7 +122,8 @@ namespace xDGA.CORE.Algorithms.IEEEC57104
                 new TableOneRow(Gas.CarbonDioxide, ">0.2", 30, int.MaxValue, 60),
             };
 
-            return t;
+                return t;
+            }
         }
 
         private static List<TableOneRow> GetRowsForGas(List<TableOneRow> inputTable,Gas gas)
